@@ -1,0 +1,23 @@
+<article>
+  <header>
+    <h1>Sign In</h1>
+  </header>
+
+  <%= form_with url: session_path do |f| %>
+    <label>
+      Email
+      <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "email" %>
+    </label>
+
+    <label>
+      Password
+      <%= f.password_field :password, required: true, autocomplete: "current-password" %>
+    </label>
+
+    <%= f.submit "Sign In" %>
+  <% end %>
+
+  <footer>
+    <p>Don't have an account? <%= link_to "Create one", new_registration_path %></p>
+  </footer>
+</article>

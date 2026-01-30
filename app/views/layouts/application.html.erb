@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Home" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if authenticated? %>
+      <nav class="container-fluid">
+        <ul>
+          <li><strong>Home Manager</strong></li>
+        </ul>
+        <ul>
+          <li><%= link_to "Dashboard", root_path %></li>
+          <li><%= current_user.name %></li>
+          <li><%= button_to "Logout", session_path, method: :delete, class: "outline" %></li>
+        </ul>
+      </nav>
+    <% end %>
+
+    <main class="container">
+      <% if notice.present? %>
+        <article class="notice"><%= notice %></article>
+      <% end %>
+      <% if alert.present? %>
+        <article class="alert"><%= alert %></article>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
