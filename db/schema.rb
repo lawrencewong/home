@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_162646) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_31_164155) do
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -45,7 +45,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_162646) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "wishlist_items", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.integer "item_type", default: 0, null: false
+    t.string "link"
+    t.text "notes"
+    t.decimal "price", precision: 10, scale: 2
+    t.integer "priority", default: 1, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_wishlist_items_on_created_by_id"
+    t.index ["item_type"], name: "index_wishlist_items_on_item_type"
+    t.index ["priority"], name: "index_wishlist_items_on_priority"
+  end
+
   add_foreign_key "sessions", "users"
   add_foreign_key "tasks", "users", column: "assigned_to_id"
   add_foreign_key "tasks", "users", column: "created_by_id"
+  add_foreign_key "wishlist_items", "users", column: "created_by_id"
 end

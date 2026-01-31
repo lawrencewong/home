@@ -1,0 +1,55 @@
+<header>
+  <h1>Wishlist</h1>
+  <div class="quick-actions">
+    <%= link_to "Add Purchase", new_wishlist_item_path(type: "purchase"), role: "button" %>
+    <%= link_to "Add Project", new_wishlist_item_path(type: "future_project"), role: "button", class: "outline" %>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li>
+      <%= link_to "Shopping List", wishlist_items_path(tab: "purchases"),
+          class: @tab == "purchases" ? "contrast" : "" %>
+    </li>
+    <li>
+      <%= link_to "Future Projects", wishlist_items_path(tab: "projects"),
+          class: @tab == "projects" ? "contrast" : "" %>
+    </li>
+  </ul>
+</nav>
+
+<% if @tab == "purchases" && @total && @total > 0 %>
+  <p><strong>Total: <%= number_to_currency(@total) %></strong></p>
+<% end %>
+
+<% if @items.empty? %>
+  <p>No items yet.</p>
+<% else %>
+  <% @items.each do |item| %>
+    <article>
+      <header>
+        <div>
+          <strong><%= link_to item.title, wishlist_item_path(item) %></strong>
+          <span class="badge badge-<%= item.priority %>"><%= item.priority.titleize %></span>
+        </div>
+        <% if item.price.present? %>
+          <strong><%= number_to_currency(item.price) %></strong>
+        <% end %>
+      </header>
+
+      <% if item.notes.present? %>
+        <p><%= truncate(item.notes, length: 100) %></p>
+      <% end %>
+
+      <footer>
+        <% if item.safe_link.present? %>
+          <%= link_to "View Link", item.safe_link, target: "_blank", rel: "noopener", role: "button", class: "outline" %>
+        <% end %>
+        <%= link_to "Edit", edit_wishlist_item_path(item), role: "button", class: "outline" %>
+        <%= button_to "Remove", wishlist_item_path(item), method: :delete,
+            data: { turbo_confirm: "Remove from wishlist?" }, class: "outline contrast" %>
+      </footer>
+    </article>
+  <% end %>
+<% end %>

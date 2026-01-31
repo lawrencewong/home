@@ -1,0 +1,10 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "31e25533189b0a4e19a1ff578e125c852e935806d37a97230a7cabee35df4fdb",
+      "note": "False positive: safe_link method validates URL starts with http(s)://, and model validates link format. User input cannot contain javascript: or other unsafe protocols."
+    }
+  ],
+  "updated": "2026-01-31",
+  "brakeman_version": "8.0.1"
+}
