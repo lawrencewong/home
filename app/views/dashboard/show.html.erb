@@ -1,2 +1,65 @@
 <h1>Welcome, <%= current_user.name %>!</h1>
-<p>Dashboard coming soon...</p>
+
+<div class="grid">
+  <section>
+    <h2>My Tasks</h2>
+    <% if @my_tasks.empty? %>
+      <p>No tasks assigned to you.</p>
+    <% else %>
+      <% @my_tasks.each do |task| %>
+        <article>
+          <header>
+            <%= link_to task.title, task_path(task) %>
+            <span class="badge badge-<%= task.status.dasherize %>"><%= task.status.titleize %></span>
+            <% if task.overdue? %>
+              <mark>Overdue</mark>
+            <% end %>
+          </header>
+          <% if task.due_date %>
+            <small>Due: <%= task.due_date.strftime("%b %d") %></small>
+          <% end %>
+        </article>
+      <% end %>
+    <% end %>
+    <%= link_to "View All Tasks", tasks_path %>
+  </section>
+
+  <section>
+    <h2>Reminders</h2>
+
+    <% if @overdue_reminders.any? %>
+      <h3><mark>Overdue</mark></h3>
+      <% @overdue_reminders.each do |reminder| %>
+        <p>
+          <%= link_to reminder.title, reminder_path(reminder) %>
+          <small>(<%= reminder.due_date.strftime("%b %d") %>)</small>
+        </p>
+      <% end %>
+    <% end %>
+
+    <% if @upcoming_reminders.any? %>
+      <h3>Next 7 Days</h3>
+      <% @upcoming_reminders.each do |reminder| %>
+        <p>
+          <%= link_to reminder.title, reminder_path(reminder) %>
+          <small>(<%= reminder.due_date.strftime("%b %d") %>)</small>
+        </p>
+      <% end %>
+    <% end %>
+
+    <% if @overdue_reminders.empty? && @upcoming_reminders.empty? %>
+      <p>No upcoming reminders.</p>
+    <% end %>
+
+    <%= link_to "View All Reminders", reminders_path %>
+  </section>
+</div>
+
+<section>
+  <h2>Quick Add</h2>
+  <div class="quick-actions">
+    <%= link_to "New Task", new_task_path, role: "button", class: "outline" %>
+    <%= link_to "New Reminder", new_reminder_path, role: "button", class: "outline" %>
+    <%= link_to "Add to Wishlist", new_wishlist_item_path, role: "button", class: "outline" %>
+  </div>
+</section>
