@@ -16,7 +16,7 @@ class AssistantController < ApplicationController
     appliances = Appliance.all
     if appliances.any?
       context_parts << "## Appliances\n" + appliances.map { |a|
-        details = [a.name]
+        details = [ a.name ]
         details << "Location: #{a.location}" if a.location.present?
         details << "Brand: #{a.brand}" if a.brand.present?
         details << "Model: #{a.model_number}" if a.model_number.present?
@@ -73,7 +73,7 @@ class AssistantController < ApplicationController
       model: "claude-sonnet-4-20250514",
       max_tokens: 1024,
       system: system_prompt,
-      messages: [{ role: "user", content: question }]
+      messages: [ { role: "user", content: question } ]
     )
 
     response.content.first.text
