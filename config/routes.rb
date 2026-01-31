@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
   end
   resources :appliances
+  resources :wiki_pages
 
   get "search", to: "search#index"
 
