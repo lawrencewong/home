@@ -1,0 +1,36 @@
+<article>
+  <header>
+    <h1><%= @task.title %></h1>
+    <span class="badge badge-<%= @task.status.dasherize %>"><%= @task.status.titleize %></span>
+    <% if @task.overdue? %>
+      <mark>Overdue</mark>
+    <% end %>
+  </header>
+
+  <dl>
+    <dt>Assigned To</dt>
+    <dd><%= @task.assigned_to&.name || "Unassigned" %></dd>
+
+    <dt>Created By</dt>
+    <dd><%= @task.created_by.name %></dd>
+
+    <dt>Due Date</dt>
+    <dd><%= @task.due_date&.strftime("%B %d, %Y") || "No due date" %></dd>
+
+    <dt>Created</dt>
+    <dd><%= @task.created_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+
+    <% if @task.notes.present? %>
+      <dt>Notes</dt>
+      <dd><%= simple_format(@task.notes) %></dd>
+    <% end %>
+  </dl>
+
+  <footer>
+    <%= link_to "Edit", edit_task_path(@task), role: "button" %>
+    <%= link_to "Back to Tasks", tasks_path, role: "button", class: "outline" %>
+    <%= button_to "Delete", task_path(@task), method: :delete,
+        data: { turbo_confirm: "Are you sure?" },
+        class: "outline contrast" %>
+  </footer>
+</article>
