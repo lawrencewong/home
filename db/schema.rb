@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_164155) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_31_172623) do
+  create_table "reminders", force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.date "due_date", null: false
+    t.string "recurrence_rule"
+    t.integer "remindable_id"
+    t.string "remindable_type"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["completed_at"], name: "index_reminders_on_completed_at"
+    t.index ["created_by_id"], name: "index_reminders_on_created_by_id"
+    t.index ["due_date"], name: "index_reminders_on_due_date"
+    t.index ["remindable_type", "remindable_id"], name: "index_reminders_on_remindable"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -60,6 +76,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_164155) do
     t.index ["priority"], name: "index_wishlist_items_on_priority"
   end
 
+  add_foreign_key "reminders", "users", column: "created_by_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "tasks", "users", column: "assigned_to_id"
   add_foreign_key "tasks", "users", column: "created_by_id"
