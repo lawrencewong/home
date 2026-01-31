@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post :complete
     end
   end
+  resources :appliances
 
   get "up" => "rails/health#show", as: :rails_health_check
 

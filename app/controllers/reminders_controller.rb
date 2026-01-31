@@ -54,6 +54,6 @@ class RemindersController < ApplicationController
   end
 
   def reminder_params
-    params.require(:reminder).permit(:title, :due_date, :recurrence_rule)
+    params.require(:reminder).permit(:title, :due_date, :recurrence_rule, :remindable_id, :remindable_type)
   end
 end

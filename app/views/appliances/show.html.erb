@@ -1,0 +1,67 @@
+<article>
+  <header>
+    <h1><%= @appliance.name %></h1>
+    <% if @appliance.warranty_expires %>
+      <span class="<%= @appliance.warranty_status_class %>">
+        Warranty: <%= @appliance.warranty_expires.strftime("%B %d, %Y") %>
+        (<%= @appliance.warranty_status.to_s.titleize %>)
+      </span>
+    <% end %>
+  </header>
+
+  <dl>
+    <% if @appliance.location.present? %>
+      <dt>Location</dt>
+      <dd><%= @appliance.location %></dd>
+    <% end %>
+
+    <% if @appliance.brand.present? %>
+      <dt>Brand</dt>
+      <dd><%= @appliance.brand %></dd>
+    <% end %>
+
+    <% if @appliance.model_number.present? %>
+      <dt>Model</dt>
+      <dd><%= @appliance.model_number %></dd>
+    <% end %>
+
+    <% if @appliance.serial_number.present? %>
+      <dt>Serial Number</dt>
+      <dd><%= @appliance.serial_number %></dd>
+    <% end %>
+
+    <% if @appliance.purchase_date.present? %>
+      <dt>Purchase Date</dt>
+      <dd><%= @appliance.purchase_date.strftime("%B %d, %Y") %></dd>
+    <% end %>
+
+    <% if @appliance.safe_manual_url.present? %>
+      <dt>Manual</dt>
+      <dd><%= link_to "View Manual", @appliance.safe_manual_url, target: "_blank", rel: "noopener" %></dd>
+    <% end %>
+
+    <% if @appliance.notes.present? %>
+      <dt>Notes</dt>
+      <dd><%= simple_format(@appliance.notes) %></dd>
+    <% end %>
+  </dl>
+
+  <% if @reminders.any? %>
+    <section>
+      <h2>Linked Reminders</h2>
+      <% @reminders.each do |reminder| %>
+        <p>
+          <%= link_to reminder.title, reminder_path(reminder) %>
+          - Due: <%= reminder.due_date.strftime("%b %d") %>
+        </p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <footer>
+    <%= link_to "Edit", edit_appliance_path(@appliance), role: "button" %>
+    <%= link_to "Back", appliances_path, role: "button", class: "outline" %>
+    <%= button_to "Delete", appliance_path(@appliance), method: :delete,
+        data: { turbo_confirm: "Delete this appliance?" }, class: "outline contrast" %>
+  </footer>
+</article>

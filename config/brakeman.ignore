@@ -3,6 +3,10 @@
     {
       "fingerprint": "31e25533189b0a4e19a1ff578e125c852e935806d37a97230a7cabee35df4fdb",
       "note": "False positive: safe_link method validates URL starts with http(s)://, and model validates link format. User input cannot contain javascript: or other unsafe protocols."
+    },
+    {
+      "fingerprint": "5b506938676a4c06c8fb4052926fd72083f3828d191cbab4f24836d3d73afaac",
+      "note": "False positive: safe_manual_url method validates URL starts with http(s)://, and model validates manual_url format. User input cannot contain javascript: or other unsafe protocols."
     }
   ],
   "updated": "2026-01-31",
