@@ -1,0 +1,29 @@
+<h1>Ask the Assistant</h1>
+
+<%= form_with url: assistant_path, method: :get, data: { turbo_frame: "_top" } do |f| %>
+  <label>
+    Your Question
+    <%= f.text_area :question, value: @question, rows: 3, autofocus: true,
+        placeholder: "e.g., When was the HVAC last serviced?" %>
+  </label>
+
+  <%= f.submit "Ask" %>
+<% end %>
+
+<% if @question.present? %>
+  <article>
+    <header>
+      <strong>Your question:</strong>
+      <p><%= @question %></p>
+    </header>
+
+    <% if @response.present? %>
+      <div class="wiki-content">
+        <%= Redcarpet::Markdown.new(
+          Redcarpet::Render::HTML.new(hard_wrap: true),
+          autolink: true, tables: true, fenced_code_blocks: true
+        ).render(@response).html_safe %>
+      </div>
+    <% end %>
+  </article>
+<% end %>

@@ -7,6 +7,10 @@
     {
       "fingerprint": "5b506938676a4c06c8fb4052926fd72083f3828d191cbab4f24836d3d73afaac",
       "note": "False positive: safe_manual_url method validates URL starts with http(s)://, and model validates manual_url format. User input cannot contain javascript: or other unsafe protocols."
+    },
+    {
+      "fingerprint": "f0dfcba16c5a56bb0bbff5a8163ab3525e3b3272181e0e504a0fe70f98cf327f",
+      "note": "AI assistant response is rendered as markdown. Response comes from Claude API, not directly from user input. The API is trusted and responses are text-based answers to user questions."
     }
   ],
   "updated": "2026-01-31",
