@@ -26,6 +26,12 @@
         include_blank: false %>
   </label>
 
+  <label>
+    Link to Appliance (optional)
+    <%= f.select :remindable_id, Appliance.order(:name).pluck(:name, :id), include_blank: "None" %>
+    <%= f.hidden_field :remindable_type, value: "Appliance" %>
+  </label>
+
   <div class="grid">
     <%= f.submit %>
     <%= link_to "Cancel", reminders_path, role: "button", class: "outline" %>

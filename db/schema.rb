@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_172623) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_31_173218) do
+  create_table "appliances", force: :cascade do |t|
+    t.string "brand"
+    t.datetime "created_at", null: false
+    t.string "location"
+    t.string "manual_url"
+    t.string "model_number"
+    t.string "name", null: false
+    t.text "notes"
+    t.date "purchase_date"
+    t.string "serial_number"
+    t.datetime "updated_at", null: false
+    t.date "warranty_expires"
+  end
+
   create_table "reminders", force: :cascade do |t|
     t.datetime "completed_at"
     t.datetime "created_at", null: false

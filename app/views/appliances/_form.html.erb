@@ -1,0 +1,65 @@
+<%= form_with model: appliance do |f| %>
+  <% if appliance.errors.any? %>
+    <article class="alert">
+      <ul>
+        <% appliance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+
+  <label>
+    Name
+    <%= f.text_field :name, required: true, autofocus: true, placeholder: "e.g., Refrigerator" %>
+  </label>
+
+  <label>
+    Location
+    <%= f.text_field :location, placeholder: "e.g., Kitchen, Basement" %>
+  </label>
+
+  <div class="grid">
+    <label>
+      Brand
+      <%= f.text_field :brand %>
+    </label>
+
+    <label>
+      Model Number
+      <%= f.text_field :model_number %>
+    </label>
+  </div>
+
+  <label>
+    Serial Number
+    <%= f.text_field :serial_number %>
+  </label>
+
+  <div class="grid">
+    <label>
+      Purchase Date
+      <%= f.date_field :purchase_date %>
+    </label>
+
+    <label>
+      Warranty Expires
+      <%= f.date_field :warranty_expires %>
+    </label>
+  </div>
+
+  <label>
+    Manual URL
+    <%= f.url_field :manual_url, placeholder: "https://..." %>
+  </label>
+
+  <label>
+    Notes
+    <%= f.text_area :notes, rows: 4 %>
+  </label>
+
+  <div class="grid">
+    <%= f.submit %>
+    <%= link_to "Cancel", appliances_path, role: "button", class: "outline" %>
+  </div>
+<% end %>

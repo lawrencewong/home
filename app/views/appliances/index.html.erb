@@ -1,0 +1,40 @@
+<header>
+  <h1>Appliances</h1>
+  <%= link_to "Add Appliance", new_appliance_path, role: "button" %>
+</header>
+
+<% if @appliances.empty? %>
+  <p>No appliances added yet.</p>
+<% else %>
+  <div class="card-grid">
+    <% @appliances.each do |appliance| %>
+      <article>
+        <header>
+          <strong><%= link_to appliance.name, appliance_path(appliance) %></strong>
+          <% if appliance.warranty_expires %>
+            <span class="<%= appliance.warranty_status_class %>">
+              <% case appliance.warranty_status %>
+              <% when :ok %>
+                Warranty OK
+              <% when :warning %>
+                Warranty expires soon
+              <% when :expired %>
+                Warranty expired
+              <% end %>
+            </span>
+          <% end %>
+        </header>
+
+        <% if appliance.location.present? %>
+          <p><small><%= appliance.location %></small></p>
+        <% end %>
+
+        <% if appliance.brand.present? || appliance.model_number.present? %>
+          <p>
+            <%= [appliance.brand, appliance.model_number].compact.join(" - ") %>
+          </p>
+        <% end %>
+      </article>
+    <% end %>
+  </div>
+<% end %>
