@@ -1,0 +1,22 @@
+<article>
+  <header>
+    <h1><%= @reminder.title %></h1>
+    <% if @reminder.recurring? %>
+      <span class="badge"><%= @reminder.recurrence_rule.titleize %></span>
+    <% end %>
+  </header>
+
+  <dl>
+    <dt>Due Date</dt>
+    <dd><%= @reminder.due_date.strftime("%B %d, %Y") %></dd>
+
+    <dt>Created By</dt>
+    <dd><%= @reminder.created_by.name %></dd>
+  </dl>
+
+  <footer>
+    <%= button_to "Complete", complete_reminder_path(@reminder), method: :post %>
+    <%= link_to "Edit", edit_reminder_path(@reminder), role: "button", class: "outline" %>
+    <%= link_to "Back", reminders_path, role: "button", class: "outline" %>
+  </footer>
+</article>

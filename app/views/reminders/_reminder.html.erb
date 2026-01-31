@@ -1,0 +1,16 @@
+<article>
+  <header>
+    <div>
+      <strong><%= link_to reminder.title, reminder_path(reminder) %></strong>
+      <% if reminder.recurring? %>
+        <small>(Recurring: <%= reminder.recurrence_rule.titleize %>)</small>
+      <% end %>
+    </div>
+    <span><%= reminder.due_date.strftime("%b %d, %Y") %></span>
+  </header>
+
+  <footer>
+    <%= button_to "Complete", complete_reminder_path(reminder), method: :post, class: "outline" %>
+    <%= link_to "Edit", edit_reminder_path(reminder), role: "button", class: "outline" %>
+  </footer>
+</article>

@@ -1,0 +1,26 @@
+<header>
+  <h1>Reminders</h1>
+  <%= link_to "New Reminder", new_reminder_path, role: "button" %>
+</header>
+
+<% if @overdue.any? %>
+  <section>
+    <h2><mark>Overdue</mark></h2>
+    <% @overdue.each do |reminder| %>
+      <%= render "reminder", reminder: reminder %>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @upcoming.any? %>
+  <section>
+    <h2>Upcoming</h2>
+    <% @upcoming.each do |reminder| %>
+      <%= render "reminder", reminder: reminder %>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @reminders.empty? %>
+  <p>No reminders. <%= link_to "Create one", new_reminder_path %>.</p>
+<% end %>

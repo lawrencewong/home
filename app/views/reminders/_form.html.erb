@@ -1,0 +1,33 @@
+<%= form_with model: reminder do |f| %>
+  <% if reminder.errors.any? %>
+    <article class="alert">
+      <ul>
+        <% reminder.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+
+  <label>
+    Title
+    <%= f.text_field :title, required: true, autofocus: true %>
+  </label>
+
+  <label>
+    Due Date
+    <%= f.date_field :due_date, required: true %>
+  </label>
+
+  <label>
+    Recurrence (optional)
+    <%= f.select :recurrence_rule,
+        [["None", nil], ["Daily", "daily"], ["Weekly", "weekly"], ["Monthly", "monthly"], ["Yearly", "yearly"]],
+        include_blank: false %>
+  </label>
+
+  <div class="grid">
+    <%= f.submit %>
+    <%= link_to "Cancel", reminders_path, role: "button", class: "outline" %>
+  </div>
+<% end %>

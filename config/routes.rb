@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 
   resources :tasks
   resources :wishlist_items
+  resources :reminders do
+    member do
+      post :complete
+    end
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
