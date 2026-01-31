@@ -1,0 +1,61 @@
+<header>
+  <h1>Tasks</h1>
+  <%= link_to "New Task", new_task_path, role: "button" %>
+</header>
+
+<nav>
+  <ul>
+    <li><%= link_to "All", tasks_path, class: params[:filter].blank? ? "contrast" : "" %></li>
+    <li><%= link_to "Mine", tasks_path(filter: "mine"), class: params[:filter] == "mine" ? "contrast" : "" %></li>
+    <li><%= link_to "Unassigned", tasks_path(filter: "unassigned"), class: params[:filter] == "unassigned" ? "contrast" : "" %></li>
+  </ul>
+</nav>
+
+<% %w[todo in_progress done].each do |status| %>
+  <% tasks_for_status = @tasks.select { |t| t.status == status } %>
+  <% next if tasks_for_status.empty? %>
+
+  <section>
+    <h2><%= status.titleize %></h2>
+
+    <% tasks_for_status.each do |task| %>
+      <article>
+        <header>
+          <div>
+            <strong><%= link_to task.title, task_path(task) %></strong>
+            <% if task.overdue? %>
+              <mark>Overdue</mark>
+            <% end %>
+          </div>
+          <small>
+            <% if task.assigned_to %>
+              Assigned to: <%= task.assigned_to.name %>
+            <% else %>
+              Unassigned
+            <% end %>
+            <% if task.due_date %>
+              | Due: <%= task.due_date.strftime("%b %d") %>
+            <% end %>
+          </small>
+        </header>
+
+        <footer>
+          <%= form_with model: task, method: :patch, style: "display: inline;" do |f| %>
+            <% if task.todo? %>
+              <%= f.hidden_field :status, value: "in_progress" %>
+              <%= f.submit "Start", class: "outline" %>
+            <% elsif task.in_progress? %>
+              <%= f.hidden_field :status, value: "done" %>
+              <%= f.submit "Complete", class: "outline" %>
+            <% end %>
+          <% end %>
+          <%= link_to "Edit", edit_task_path(task), class: "outline", role: "button" %>
+        </footer>
+      </article>
+    <% end %>
+  </section>
+<% end %>
+
+<% if @tasks.empty? %>
+  <p>No tasks found. <%= link_to "Create one", new_task_path %>.</p>
+<% end %>
