@@ -1,0 +1,51 @@
+<h1>Search</h1>
+
+<%= form_with url: search_path, method: :get, data: { turbo_frame: "_top" } do |f| %>
+  <div class="grid">
+    <%= f.search_field :q, value: @query, placeholder: "Search...", autofocus: true %>
+    <%= f.submit "Search" %>
+  </div>
+<% end %>
+
+<% if @query.present? %>
+  <% total = [@tasks, @appliances, @wishlist_items].compact.sum(&:count) %>
+
+  <p><%= total %> results for "<%= @query %>"</p>
+
+  <% if @tasks&.any? %>
+    <section>
+      <h2>Tasks (<%= @tasks.count %>)</h2>
+      <ul>
+        <% @tasks.each do |task| %>
+          <li><%= link_to task.title, task_path(task) %> - <%= task.status.titleize %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if @appliances&.any? %>
+    <section>
+      <h2>Appliances (<%= @appliances.count %>)</h2>
+      <ul>
+        <% @appliances.each do |appliance| %>
+          <li><%= link_to appliance.name, appliance_path(appliance) %><%= " - #{appliance.location}" if appliance.location.present? %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if @wishlist_items&.any? %>
+    <section>
+      <h2>Wishlist (<%= @wishlist_items.count %>)</h2>
+      <ul>
+        <% @wishlist_items.each do |item| %>
+          <li><%= link_to item.title, wishlist_item_path(item) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if total == 0 %>
+    <p>No results found.</p>
+  <% end %>
+<% end %>

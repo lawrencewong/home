@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
   resources :appliances
 
+  get "search", to: "search#index"
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "dashboard#show"
