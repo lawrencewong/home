@@ -1,0 +1,35 @@
+<article>
+  <header>
+    <h1><%= @wishlist_item.title %></h1>
+    <span class="badge badge-<%= @wishlist_item.priority %>"><%= @wishlist_item.priority.titleize %></span>
+    <span class="badge"><%= @wishlist_item.item_type.titleize %></span>
+  </header>
+
+  <dl>
+    <% if @wishlist_item.price.present? %>
+      <dt>Price</dt>
+      <dd><%= number_to_currency(@wishlist_item.price) %></dd>
+    <% end %>
+
+    <% if @wishlist_item.link.present? %>
+      <dt>Link</dt>
+      <dd><%= link_to @wishlist_item.link, @wishlist_item.link, target: "_blank", rel: "noopener" %></dd>
+    <% end %>
+
+    <dt>Added By</dt>
+    <dd><%= @wishlist_item.created_by.name %></dd>
+
+    <dt>Added On</dt>
+    <dd><%= @wishlist_item.created_at.strftime("%B %d, %Y") %></dd>
+
+    <% if @wishlist_item.notes.present? %>
+      <dt>Notes</dt>
+      <dd><%= simple_format(@wishlist_item.notes) %></dd>
+    <% end %>
+  </dl>
+
+  <footer>
+    <%= link_to "Edit", edit_wishlist_item_path(@wishlist_item), role: "button" %>
+    <%= link_to "Back to Wishlist", wishlist_items_path, role: "button", class: "outline" %>
+  </footer>
+</article>

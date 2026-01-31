@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   resources :tasks
+  resources :wishlist_items
 
   get "up" => "rails/health#show", as: :rails_health_check
 

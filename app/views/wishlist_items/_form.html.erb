@@ -1,0 +1,46 @@
+<%= form_with model: wishlist_item do |f| %>
+  <% if wishlist_item.errors.any? %>
+    <article class="alert">
+      <ul>
+        <% wishlist_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+
+  <label>
+    Title
+    <%= f.text_field :title, required: true, autofocus: true %>
+  </label>
+
+  <label>
+    Type
+    <%= f.select :item_type, WishlistItem.item_types.keys.map { |t| [t.titleize, t] } %>
+  </label>
+
+  <label>
+    Priority
+    <%= f.select :priority, WishlistItem.priorities.keys.map { |p| [p.titleize, p] } %>
+  </label>
+
+  <label>
+    Price (optional)
+    <%= f.number_field :price, step: 0.01, min: 0, placeholder: "0.00" %>
+  </label>
+
+  <label>
+    Link (optional)
+    <%= f.url_field :link, placeholder: "https://..." %>
+  </label>
+
+  <label>
+    Notes
+    <%= f.text_area :notes, rows: 4 %>
+  </label>
+
+  <div class="grid">
+    <%= f.submit %>
+    <%= link_to "Cancel", wishlist_items_path, role: "button", class: "outline" %>
+  </div>
+<% end %>

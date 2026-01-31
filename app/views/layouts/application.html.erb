@@ -20,6 +20,8 @@
         </ul>
         <ul>
           <li><%= link_to "Dashboard", root_path %></li>
+          <li><%= link_to "Tasks", tasks_path %></li>
+          <li><%= link_to "Wishlist", wishlist_items_path %></li>
           <li><%= current_user.name %></li>
           <li><%= button_to "Logout", session_path, method: :delete, class: "outline" %></li>
         </ul>
