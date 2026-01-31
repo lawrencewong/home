@@ -5,6 +5,11 @@ class WishlistItem < ApplicationRecord
   enum :priority, { low: 0, medium: 1, high: 2 }
 
   validates :title, presence: true
+  validates :link, format: { with: /\Ahttps?:\/\/\S+\z/, message: "must be a valid HTTP or HTTPS URL" }, allow_blank: true
+
+  def safe_link
+    link if link.present? && link.match?(/\Ahttps?:\/\//)
+  end
 
   scope :purchases, -> { where(item_type: :purchase) }
   scope :projects, -> { where(item_type: :future_project) }

@@ -43,8 +43,8 @@
       <% end %>
 
       <footer>
-        <% if item.link.present? %>
-          <%= link_to "View Link", item.link, target: "_blank", rel: "noopener", role: "button", class: "outline" %>
+        <% if item.safe_link.present? %>
+          <%= link_to "View Link", item.safe_link, target: "_blank", rel: "noopener", role: "button", class: "outline" %>
         <% end %>
         <%= link_to "Edit", edit_wishlist_item_path(item), role: "button", class: "outline" %>
         <%= button_to "Remove", wishlist_item_path(item), method: :delete,

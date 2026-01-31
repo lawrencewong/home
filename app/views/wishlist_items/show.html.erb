@@ -11,9 +11,9 @@
       <dd><%= number_to_currency(@wishlist_item.price) %></dd>
     <% end %>
 
-    <% if @wishlist_item.link.present? %>
+    <% if @wishlist_item.safe_link.present? %>
       <dt>Link</dt>
-      <dd><%= link_to @wishlist_item.link, @wishlist_item.link, target: "_blank", rel: "noopener" %></dd>
+      <dd><%= link_to @wishlist_item.safe_link, @wishlist_item.safe_link, target: "_blank", rel: "noopener" %></dd>
     <% end %>
 
     <dt>Added By</dt>
