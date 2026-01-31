@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_31_173218) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_31_182534) do
   create_table "appliances", force: :cascade do |t|
     t.string "brand"
     t.datetime "created_at", null: false
@@ -75,6 +75,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_173218) do
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
   end
 
+  create_table "wiki_pages", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.integer "created_by_id", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.integer "updated_by_id", null: false
+    t.index ["created_by_id"], name: "index_wiki_pages_on_created_by_id"
+    t.index ["title"], name: "index_wiki_pages_on_title", unique: true
+    t.index ["updated_by_id"], name: "index_wiki_pages_on_updated_by_id"
+  end
+
   create_table "wishlist_items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "created_by_id", null: false
@@ -94,5 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_31_173218) do
   add_foreign_key "sessions", "users"
   add_foreign_key "tasks", "users", column: "assigned_to_id"
   add_foreign_key "tasks", "users", column: "created_by_id"
+  add_foreign_key "wiki_pages", "users", column: "created_by_id"
+  add_foreign_key "wiki_pages", "users", column: "updated_by_id"
   add_foreign_key "wishlist_items", "users", column: "created_by_id"
 end

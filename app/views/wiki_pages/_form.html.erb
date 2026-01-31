@@ -1,0 +1,38 @@
+<%= form_with model: wiki_page do |f| %>
+  <% if wiki_page.errors.any? %>
+    <article class="alert">
+      <ul>
+        <% wiki_page.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+
+  <label>
+    Title
+    <%= f.text_field :title, required: true, autofocus: wiki_page.new_record? %>
+  </label>
+
+  <label>
+    Content (Markdown supported)
+    <%= f.text_area :body, rows: 15, autofocus: !wiki_page.new_record? %>
+  </label>
+
+  <details>
+    <summary>Formatting Help</summary>
+    <ul>
+      <li><code>**bold**</code> for <strong>bold</strong></li>
+      <li><code>*italic*</code> for <em>italic</em></li>
+      <li><code>[[Page Title]]</code> to link to another wiki page</li>
+      <li><code># Heading</code> for headings (## for smaller)</li>
+      <li><code>- item</code> for bullet lists</li>
+      <li><code>1. item</code> for numbered lists</li>
+    </ul>
+  </details>
+
+  <div class="grid">
+    <%= f.submit %>
+    <%= link_to "Cancel", wiki_pages_path, role: "button", class: "outline" %>
+  </div>
+<% end %>

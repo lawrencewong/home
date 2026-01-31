@@ -1,0 +1,20 @@
+<article>
+  <header>
+    <h1><%= @wiki_page.title %></h1>
+    <small>
+      Last updated <%= time_ago_in_words(@wiki_page.updated_at) %> ago
+      by <%= @wiki_page.updated_by.name %>
+    </small>
+  </header>
+
+  <div class="wiki-content">
+    <%= @wiki_page.rendered_body %>
+  </div>
+
+  <footer>
+    <%= link_to "Edit", edit_wiki_page_path(@wiki_page.title), role: "button" %>
+    <%= link_to "All Pages", wiki_pages_path, role: "button", class: "outline" %>
+    <%= button_to "Delete", wiki_page_path(@wiki_page), method: :delete,
+        data: { turbo_confirm: "Delete this page?" }, class: "outline contrast" %>
+  </footer>
+</article>
