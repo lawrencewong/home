@@ -19,6 +19,9 @@ gem "bcrypt", "~> 3.1.7"
 # Markdown rendering for wiki pages
 gem "redcarpet"
 
+# Anthropic API client for AI assistant
+gem "anthropic"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :wiki_pages
 
   get "search", to: "search#index"
+  get "assistant", to: "assistant#show"
 
   get "up" => "rails/health#show", as: :rails_health_check
 
